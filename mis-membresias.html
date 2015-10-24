@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+
+        <meta name="author" content="">
+
+        <title>App movil</title>
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="assets/css/style.css" rel="stylesheet">
+
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script src="js/jquery-1.11.1.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8">
+            
+            document.addEventListener("deviceready", onDeviceReady, false);                    
+            
+            function openHome(event) {     
+                window.location.replace('home.html');
+            }
+            
+            function openBuscar(event) {     
+                window.location.replace('buscar.html');
+            }
+            
+            function openCv(event) {     
+                window.location.replace('mi-cv.html');
+            }
+            
+            function openCuenta(event) {     
+                window.location.replace('mi-cuenta.html');
+            }
+            
+            
+             // Cordova is ready
+            //
+            function onDeviceReady() {
+                // Empty
+            }
+            
+            // alert dialog dismissed
+            function alertDismissed() {
+                // do something
+            }
+            
+            // Show a custom alertDismissed
+            //
+            function showAlert() {
+            }
+        </script>
+
+    </head>
+
+    <body>
+
+        <header class="page-header">
+
+            <div class="container">
+
+                <div class="col-md-3 col-sm-3 pull-left img-left" onclick="openCuenta();">
+                    <i class="glyphicon glyphicon-menu-left"></i>
+                    <div class="texto">Mi cuenta</div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 text-center">Mis Membres&iacute;as</div>
+
+                <div class="col-md-3 col-sm-3 pull-right img-right">
+                    <img src="assets/img/configuracion.png">
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="content">
+
+            <div class="col-md-12 bg-two">
+
+                <div class="franja">
+
+                    Deluxe
+
+                </div>
+
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 ">
+
+                    <div class="full">
+
+                        <p>
+                            <span class="subtitulo">Estado</span><span class="subtitulo-texto">Activa</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de suscripci&oacute;n</span><span class="subtitulo-texto">19/01/2015</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de finalizaci&oacute;n</span><span class="subtitulo-texto">26/01/2015</span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 bg-two">
+
+                <div class="franja-container">
+
+                    Ideal<span class="editar">Pagar</span>
+
+                </div>
+
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 ">
+
+                    <div class="full">
+
+                        <p>
+                            <span class="subtitulo">Estado</span><span class="subtitulo-texto">Pendiente</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de suscripci&oacute;n</span><span class="subtitulo-texto">--/--/----</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de finalizaci&oacute;n</span><span class="subtitulo-texto">--/--/----</span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12 bg-two">
+
+                <div class="franja">
+
+                    B&aacute;sico
+
+                </div>
+
+            </div>
+
+            <div class="container">
+
+                <div class="col-md-12 ">
+
+                    <div class="full">
+
+                        <p>
+                            <span class="subtitulo">Estado</span><span class="subtitulo-texto">Expirada</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de suscripci&oacute;n</span><span class="subtitulo-texto">19/01/2015</span>
+                        </p>
+
+                        <p>
+                            <span class="subtitulo">Fecha de finalizaci&oacute;n</span><span class="subtitulo-texto">26/01/2015</span>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+         <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openHome();">
+                        <div class="img">
+                            <img src="assets/img/inicio.png">
+                        </div>Inicio
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openBuscar();">
+                        <div class="img">
+                            <img src="assets/img/buscar.png">
+                        </div>Buscar
+                    </div>
+                    <div class="col-md-15 col-sm-24 text-center list">
+                        <div class="img">
+                            <img src="assets/img/aplicaciones.png">
+                        </div>Aplicaciones
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openCv();">
+                        <div class="img">
+                            <img src="assets/img/cv.png">
+                        </div>Mi CV
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openCuenta();">
+                        <div class="img">
+                            <img src="assets/img/cuenta.png">
+                        </div>Cuenta
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+
+</html>
