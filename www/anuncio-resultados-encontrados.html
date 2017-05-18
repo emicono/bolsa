@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>App movil</title>
+        <link href="assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/custom.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script src="js/jquery-1.11.1.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf-8">
+            
+            //document.addEventListener("deviceready", onDeviceReady, false);                  
+            
+            function leerGET() { 
+                var cadGET = location.search.substr(1, location.search.length); 
+                var arrGET = cadGET.split("&"); 
+                var asocGET = new Array();
+                var variable = ""; 
+                var valor = "";
+                var numVariables = arrGET.length;
+                for (i = 0 ; i < numVariables; i++) {
+                    var aux = arrGET[i].split("=");
+                    variable = aux[0]; 
+                    valor = aux[1]; 
+                    asocGET[variable] = valor; 
+                    //alert("variable:"+variable+", "+"valor:"+valor);
+                } 
+                return asocGET; 
+            } 
+            
+            var paresVarValor = leerGET(); 
+            
+            
+            // Cordova is ready
+            //
+            function onDeviceReady() {
+            }
+            
+            // alert dialog dismissed
+            function alertDismissed() {
+                // do something
+            }
+            
+            // Show a custom alertDismissed
+            //
+            function showAlert() {
+            }
+            
+           
+            function openHome(event) {     
+                window.location.replace('home.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid']));
+            }
+            
+            function openBuscar(event) {     
+                window.location.replace('buscar.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid']));
+            }
+            
+            
+            function openAplicaciones(event) {      
+                window.location.replace('mis-aplicaciones.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid']));
+            }
+            function openCv(event) {     
+                window.location.replace('mi-cv.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid']));
+            }
+            
+            function openCuenta(event) {     
+                window.location.replace('mi-cuenta.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid']));
+            }
+            
+            
+             function openPreguntas(event) {     
+                window.location.replace('preguntas.html?'+
+                                        'uuid='+decodeURI(paresVarValor['uuid'])+
+                                        '&empleoid='+decodeURI(paresVarValor['empleoid'])+
+                                        '&page=anuncio-resultados-encontrados.html'
+                                       );
+            }
+            
+            function cerrarSesion(event) {     
+                  $.ajax({  
+                           //url:'http://localhost:8089/bolsaempleo/cerrarSesion',                                
+                           url:'http://159.203.126.75:8080/bolsaempleo/cerrarSesion',                                
+                           data:{uuid:UUID},
+                           dataType:'xml', 
+                           timeout:10000,  
+                           type:'GET',  
+                           success:function(xml) {                               
+                                window.location.replace('index.html');
+                           },  
+                           error:function(XMLHttpRequest, textStatus, errorThrown) {   
+                               alert("Debe conectarse a internet");  
+                               $("#bookInFo").append(XMLHttpRequest.responseXML);
+                           }
+                       });
+                
+            }
+             function alertDismissed() {
+                // do something
+            }
+             function loadData (event) {  
+                 loadAnuncio();                 
+            } 
+            
+            
+            function loadAnuncio(event) {     
+                $.ajax({  
+                           url:'http://159.203.126.75:8080/bolsaempleo/getEmpleo',                
+                           data:{empleoid: decodeURI(paresVarValor['empleoid'])
+                               },
+                           dataType:'xml', 
+                           timeout:10000,  
+                           type:'GET',  
+                           success:function(xml) {
+                                if ($(xml).find("bolsaempleo").find("id").text()!=='0') {  
+                                   $(xml).find('bolsaempleo').find('empleo').each(
+                                       function(i) {
+                                           tituloEmpleo.textContent = $(this).find("cargo").text();
+                                           sector.innerText  = $(this).find("sector").text();
+                                           salario.innerText  = $(this).find("salario").text();
+                                           localidad.innerText  = $(this).find("localidad").text();
+                                           fecha.innerText  = $(this).find("fecha").text();
+                                           experiencia.innerText  = $(this).find("experiencia").text();
+                                           descripcion.innerText  = $(this).find("descripcion").text();
+                                           responsabilidades.innerText  = $(this).find("responsabilidades").text();
+                                           conocimientos.innerText  = $(this).find("conocimientos").text();
+                                           competencias.innerText  = $(this).find("competencias").text();
+                                       }
+                                     );
+                               }else {     
+                               }                                
+                           },  
+                           error:function(XMLHttpRequest, textStatus, errorThrown) {   
+                               alert("Debe conectarse a internet");  
+                               //alert("Error type :" + errorThrown);  
+                               //alert("Error message :" + XMLHttpRequest.responseXML);
+                               $("#bookInFo").append(XMLHttpRequest.responseXML);
+                           }
+                       });
+            }
+            
+              // alert dialog dismissed
+            function alertDismissed() {
+                // do something
+            }
+            
+            // Show a custom alertDismissed
+            //
+            function showAlert() {
+            }
+            
+            
+              function aplicarAnuncio(event) {     
+                  //alert("device.uuid" + device.uuid);  
+                  
+                $.ajax({  
+                           url:'http://159.203.126.75:8080/bolsaempleo/aplicarAnuncio',                
+                           data:{empleoid: decodeURI(paresVarValor['empleoid']),
+                                 uuid:device.uuid
+                               },
+                           dataType:'xml', 
+                           timeout:10000,  
+                           type:'GET',  
+                           success:function(xml) {
+                                 if ($(xml).find("bolsaempleo").find("id").text()!=='-1') {  
+                                     if ($(xml).find("bolsaempleo").find("id").text()!=='0') {  
+                                   		openPreguntas();
+                               		}else {     
+                               		 	navigator.notification.alert(
+                                       		'Aplicacion Exitosa', // message
+                                       		alertDismissed, // callback
+                                       		'Bolsa de Empleo', // title
+                                       		'Ok' // buttonName
+                                       );
+                                   		openHome();
+                               		}
+                               }else {     
+                               		 navigator.notification.alert(
+                                      $(xml).find("bolsaempleo").find("nombre").text() , // message
+                                       alertDismissed, // callback
+                                       'Bolsa de Empleo', // title
+                                       'Ok' // buttonName
+                                       );
+                               }
+                           },  
+                           error:function(XMLHttpRequest, textStatus, errorThrown) {   
+                               alert("Debe conectarse a internet");  
+                               //alert("Error type :" + errorThrown);  
+                               //alert("Error message :" + XMLHttpRequest.responseXML);
+                               $("#bookInFo").append(XMLHttpRequest.responseXML);
+                           }
+                       });
+                       
+            }
+            
+            
+            
+        </script>
+        
+        
+    </head>
+
+  <body onload="loadData()" >
+    <header class="page-header">
+    	<div class="container">
+    		<div class="col-md-3 col-sm-3 pull-left img-left" onclick="openBuscar();"><i class="glyphicon glyphicon-menu-left"></i><div class="texto">Regresar</div></div>
+	        <div class="col-md-6 col-sm-6 text-center">Anuncio</div>
+	        <div class="col-md-3 col-sm-3 pull-right img-right"><img src="assets/img/configuracion.png"></div>
+    	</div>
+    </header>
+    <div class="content">
+   		<div class="col-md-12 bg-two">
+			<div class="franja">
+                <p id="tituloEmpleo"></p>
+			</div>
+		</div>
+		<div class="col-md-12 ">
+			<div class="franja">
+				<div class="texto">
+					<p><span class="subtitulo">Sector Laboral: </span><span class="subtitulo-texto" id="sector"> </span></p>
+					<p><span class="subtitulo">Salario: </span><span class="subtitulo-texto" id="salario"> </span></p>
+					<p><span class="subtitulo">Localidad: </span><span class="subtitulo-texto" div id="localidad"> </span></p>
+					<p><span class="subtitulo">Fecha: </span><span class="subtitulo-texto"  id="fecha">  </span></p>
+					<p><span class="subtitulo">Experiencia m&iacute;nima: </span><span class="subtitulo-texto" id="experiencia">   </span></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="franja-title border-blue">
+				<div class="texto">
+					<p>Descripci&oacute;n del cargo</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="full">
+					<div class="texto-new">
+						<p id="descripcion"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="franja-title border-blue">
+				<div class="texto">
+					<p>Responsabilidades y actividades</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="full">
+					<div class="texto-new">
+                            <p id="responsabilidades"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="franja-title border-blue">
+				<div class="texto">
+					<p>Conocimientos adicionales</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="full">
+					<div class="texto-new">
+                            <p id="conocimientos"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="franja-title border-blue">
+				<div class="texto">
+					<p>Competencias</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="full">
+					<div class="texto-new">
+                            <div id="competencias"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-md-12 text-center" onclick="aplicarAnuncio();">
+				<input type="button" id="registrar" name="registrar" class="button-bg-two" value="APLICAR AHORA"/>
+			</div>
+		</div>
+    </div>
+
+    <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openHome();">
+                        <div class="img">
+                            <img src="assets/img/inicio.png">
+                        </div>Inicio
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openBuscar();">
+                        <div class="img">
+                            <img src="assets/img/buscar.png">
+                        </div>Buscar
+                    </div>
+                    <div class="col-md-15 col-sm-24 text-center list" onclick="openAplicaciones();">
+                        <div class="img">
+                            <img src="assets/img/aplicaciones.png">
+                        </div>Aplicaciones
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openCv();">
+                        <div class="img">
+                            <img src="assets/img/cv.png">
+                        </div>Mi CV
+                    </div>
+                    <div class="col-md-15 col-sm-19 text-center list" onclick="openCuenta();">
+                        <div class="img">
+                            <img src="assets/img/cuenta.png">
+                        </div>Cuenta
+                    </div>
+                </div>
+            </div>
+        </footer>
+  </body>
+</html>
