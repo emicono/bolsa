@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+com.conosur.Aplica<?xml version="1.0" encoding="utf-8"?>
 <manifest android:versionCode="$AndroidVersionCode$"
           android:versionName="$BundleVersion$"
-          package="$AppIdentifier$"
+          package="com.conosur.Aplica"
           android:windowSoftInputMode="adjustPan"
           android:hardwareAccelerated="$AndroidHardwareAcceleration$"
           xmlns:android="http://schemas.android.com/apk/res/android" >
